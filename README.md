@@ -20,3 +20,5 @@ It scans your network for connected devices, identifies open ports, and detects 
 - **Java 21** or higher
 - Git
 - A working network connection
+
+Also requires nmap installed on the device.
