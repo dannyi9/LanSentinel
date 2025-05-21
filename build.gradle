@@ -36,7 +36,7 @@ bootJar {
     archiveClassifier.set("")
 }
 
-public static void printfsh(String input) {
+static void printfsh(String input) {
     println("<>< " + input + " <><");
 }
 
