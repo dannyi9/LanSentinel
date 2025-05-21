@@ -18,6 +18,7 @@ public class NetworkScannerService {
     private DeviceRepository deviceRepository;
 
     public void scanAndSaveDevices(String subnet) {
+        System.out.println("Starting network scanning ...");
         try {
             Process process = new ProcessBuilder("nmap", "-sn", subnet)
                     .redirectErrorStream(true)
