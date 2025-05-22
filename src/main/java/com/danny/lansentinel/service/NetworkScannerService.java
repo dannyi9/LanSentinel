@@ -8,6 +8,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,6 +19,11 @@ public class NetworkScannerService {
 
     public NetworkScannerService(DeviceRepository deviceRepository) {
         this.deviceRepository = deviceRepository;
+    }
+
+    public String formatDateTime(LocalDateTime time) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        return time.format(formatter);
     }
 
     public void saveDevice(Device device) {
@@ -117,7 +123,7 @@ public class NetworkScannerService {
                 defaultIfNull(device.getHostname()),
                 defaultIfNull(device.getMacAddress()),
                 defaultIfNull(device.getVendor()),
-                device.getLastSeen()
+                formatDateTime(device.getLastSeen())
         ));
     }
 
