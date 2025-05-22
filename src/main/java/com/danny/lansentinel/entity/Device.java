@@ -32,6 +32,10 @@ public class Device {
 
     private String notes;
 
+    public Long getId() {
+        return this.id;
+    }
+
     public String getHostname() {
         return this.hostname;
     }
