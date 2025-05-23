@@ -5,7 +5,7 @@ plugins {
 }
 
 group = 'com.danny'
-version = '0.0.1-SNAPSHOT'
+version = '0.0.2-SNAPSHOT'
 
 java {
     toolchain {
@@ -23,9 +23,55 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.h2database:h2'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
-tasks.named('test') {
+test {
     useJUnitPlatform()
 }
+
+bootJar {
+    archiveBaseName.set("LanSentinel")
+    archiveVersion.set("")
+    archiveClassifier.set("")
+}
+
+static void printfsh(String input) {
+    println("<>< " + input + " <><");
+}
+
+tasks.register("dockerBuildRun") {
+    group = "custom"
+    description = "Builds the JAR, builds Docker image, and runs the container"
+
+    dependsOn("bootJar")
+
+    doLast {
+        def jar = layout.buildDirectory.file("libs/LanSentinel.jar").get().asFile
+        def jarPath = jar.absolutePath
+        def imageName = "lansentinel"
+
+        if (!jar.exists()) {
+            printfsh "JAR not found at: $jarPath"
+            printfsh "Contents of build/libs:"
+            layout.buildDirectory.dir("libs").get().asFile.listFiles()?.each {
+                println " - ${it.name}"
+            }
+            throw new GradleException("Expected JAR not found after bootJar")
+        }
+
+        printfsh "Found JAR: ${jar.name}"
+
+        printfsh "Building Docker image..."
+        exec {
+            commandLine "docker", "build", "-t", imageName, "--build-arg", "JAR_NAME=${jar.name}", "."
+        }
+
+        printfsh "Running Docker container..."
+        exec {
+            commandLine "docker", "run", "--rm", "--net=host", "--cap-add=NET_RAW", imageName
+        }
+    }
+}
+
