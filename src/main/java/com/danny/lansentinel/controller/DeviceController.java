@@ -2,9 +2,8 @@ package com.danny.lansentinel.controller;
 
 import com.danny.lansentinel.entity.Device;
 import com.danny.lansentinel.repository.DeviceRepository;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -25,6 +24,15 @@ public class DeviceController {
     @GetMapping("/devices/{id}")
     public Device getDeviceById(@PathVariable Long id) {
         return deviceRepository.findById(id).orElse(null);
+    }
+
+    @PutMapping("/devices/{id}/trust")
+    public ResponseEntity<String> setDeviceTrusted(@PathVariable Long id, @RequestParam boolean trusted) {
+        return deviceRepository.findById(id).map(device -> {
+            device.setTrusted(trusted);
+            deviceRepository.save(device);
+            return ResponseEntity.ok("Device " + id + " trust status set to " + trusted);
+        }).orElse(ResponseEntity.notFound().build());
     }
 
 }

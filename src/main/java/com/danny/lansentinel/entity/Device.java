@@ -79,4 +79,8 @@ public class Device {
     public void setLastSeen(LocalDateTime lastSeen) {
         this.lastSeen = lastSeen;
     }
+
+    public void setTrusted(Boolean isTrusted) {
+        this.isTrusted = isTrusted;
+    }
 }
