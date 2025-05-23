@@ -56,6 +56,10 @@ public class Device {
         return this.lastSeen;
     }
 
+    public Boolean isTrusted() {
+        return this.isTrusted;
+    }
+
     public void setHostname(String hostname) {
         this.hostname = hostname;
     }
