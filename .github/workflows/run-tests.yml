@@ -38,4 +38,5 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y nmap
 
       - name: Run tests
+        working-directory: backend
         run: ./gradlew test
