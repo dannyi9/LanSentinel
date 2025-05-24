@@ -1,1 +1,9 @@
 <h2>Devices</h2>
+
+<li *ngFor="let device of devices">
+  <button>Select</button>
+  <button
+    [disabled]="!device.id || device.isTrusted"
+  >Set Trusted</button>
+  {{ device.hostname || '(unknown)'}} - ({{device.ipAddress}})
+</li>

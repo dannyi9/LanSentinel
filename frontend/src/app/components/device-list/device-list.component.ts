@@ -1,10 +1,12 @@
 import {Component, OnInit} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {Device} from '../../model/device.model';
 import {DeviceService} from '../../service/device.service';
 
 @Component({
   selector: 'app-device-list',
   standalone: true,
+  imports: [CommonModule],
   templateUrl: './device-list.component.html'
 })
 export class DeviceListComponent implements OnInit {

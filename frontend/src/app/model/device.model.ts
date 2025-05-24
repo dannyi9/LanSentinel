@@ -5,4 +5,5 @@ export interface Device {
   os: string;
   openPorts: number[];
   lastSeen: string;
+  isTrusted: boolean;
 }
