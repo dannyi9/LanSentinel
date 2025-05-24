@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {Device} from '../../model/device.model';
 
 @Component({
   selector: 'app-device-list',
@@ -6,6 +7,8 @@ import {Component, OnInit} from '@angular/core';
   templateUrl: './device-list.component.html'
 })
 export class DeviceListComponent implements OnInit {
+
+  devices: Device[] = [];
 
   constructor() {}
 
