@@ -18,4 +18,10 @@ export class DeviceService {
   getDeviceById(id: number): Observable<Device> {
     return this.http.get<Device>(`${this.apiUrl}/${id}`);
   }
+
+  setTrustedDeviceById(id: number, trusted: boolean): Observable<Device> {
+    return this.http.put<Device>(`${this.apiUrl}/${id}/trust`, null, {
+      params: { trusted: trusted.toString() }
+    });
+  }
 }
