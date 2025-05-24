@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Device} from '../../model/device.model';
+import {DeviceService} from '../../service/device.service';
 
 @Component({
   selector: 'app-device-list',
@@ -10,10 +11,20 @@ export class DeviceListComponent implements OnInit {
 
   devices: Device[] = [];
 
-  constructor() {}
+  constructor(private deviceService: DeviceService) {}
 
   ngOnInit() {
     console.log('Device List initiated');
+
+    this.deviceService.getAllDevices().subscribe({
+      next: data => {
+        console.log('Loaded devices:', data);
+        this.devices = data;
+      },
+      error: err => {
+        console.error('Failed to load devices:', err);
+      }
+    });
   }
 
 }
