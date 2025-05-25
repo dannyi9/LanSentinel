@@ -20,4 +20,4 @@ It scans your network for connected devices, identifies open ports, and detects 
 - **Java 21** or higher
 - Git
 - A working network connection
-- Nmap installed
+- Nmap installed (unless using Docker)
