@@ -27,7 +27,7 @@ jobs:
       - name: Enable debug for setup-java
         run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
 
-      - name: Cache Gradle packages
+      - name: Restoring cached Gradle packages
         id: gradle-cache
         uses: actions/cache@v4
         with:
