@@ -2,12 +2,8 @@ package com.danny.lansentinel.controller;
 
 import com.danny.lansentinel.service.NetworkScannerService;
 
-import com.danny.lansentinel.entity.Device;
-import com.danny.lansentinel.repository.DeviceRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class ScanController {
