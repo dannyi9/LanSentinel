@@ -8,6 +8,7 @@ It scans your network for connected devices, identifies open ports, and detects 
 
 ## 🚀 Key Features
 
+- **User-Friendly Web Interface**: Visualise the status of your network with an intuitive and responsive UI.
 - **TODO - Real-Time Network Scanning**: Automatically detects and displays all active devices on your network.
 - **TODO - Port Scanning & Vulnerability Detection**: Scans devices for open ports and identifies potential security threats.
 - **TODO - Device Classification**: Groups devices based on identifiers like HTTP server strings, device type, and more.
