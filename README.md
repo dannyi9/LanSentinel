@@ -1,3 +1,5 @@
+![Run Spring Boot Tests](https://github.com/dannyi9/LanSentinel/actions/workflows/run-tests.yml/badge.svg)
+
 # LanSentinel
 
 **LanSentinel** is a powerful local network asset monitoring tool designed to help network administrators and security enthusiasts efficiently track and secure their network. With real-time scanning, device classification, and vulnerability detection, **LanSentinel** ensures your network remains safe and well-monitored.
