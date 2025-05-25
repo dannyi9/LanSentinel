@@ -3,12 +3,3 @@ button:disabled {
   cursor: not-allowed;
 }
 
-button.trusted {
-  background-color: green;
-  color: white;
-}
-
-button.untrusted {
-  background-color: red;
-  color: white;
-}

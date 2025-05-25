@@ -8,6 +8,7 @@ import {Observable} from 'rxjs';
 })
 export class DeviceService {
   private apiUrl = 'http://localhost:8080/devices';
+  private scanUrl = 'http://localhost:8080/scan';
 
   constructor(private http: HttpClient) {}
 
@@ -23,5 +24,13 @@ export class DeviceService {
     return this.http.put<Device>(`${this.apiUrl}/${id}/trust`, null, {
       params: { trusted: trusted.toString() }
     });
+  }
+
+  getScanEnabled(): Observable<Boolean> {
+    return this.http.get<Boolean>(`${this.scanUrl}/enabled`);
+  }
+
+  setScanEnabled(enabled: boolean): Observable<Boolean> {
+    return this.http.get<Boolean>(`${this.scanUrl}/enable/${enabled}`);
   }
 }

@@ -17,6 +17,8 @@ public class NetworkScannerService {
 
     private final DeviceRepository deviceRepository;
 
+    private boolean scanEnabled = true;
+
     public NetworkScannerService(DeviceRepository deviceRepository) {
         this.deviceRepository = deviceRepository;
     }
@@ -45,6 +47,9 @@ public class NetworkScannerService {
     }
 
     public void scanAndSaveDevices(String subnet) {
+        if (!scanEnabled)
+            return;
+
         System.out.println("Starting network scan for subnet: " + subnet);
 
         try {
@@ -78,6 +83,16 @@ public class NetworkScannerService {
             System.err.println("Error during network scan:");
             e.printStackTrace();
         }
+    }
+
+    public Boolean isScanEnabled() {
+        return scanEnabled;
+    }
+
+    public Boolean enableScan(Boolean enable) {
+        scanEnabled = enable;
+        System.out.println("Network scan status set to: " + (scanEnabled ? "ENABLED" : "DISABLED"));
+        return scanEnabled;
     }
 
     private Device parseScanReportLine(String line) {

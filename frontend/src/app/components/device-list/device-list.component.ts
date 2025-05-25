@@ -12,6 +12,7 @@ import {DeviceService} from '../../service/device.service';
 })
 export class DeviceListComponent implements OnInit {
 
+  scanEnabled: Boolean = true;
   devices: Device[] = [];
   selectedDevice: Device | null = null;
 
@@ -19,6 +20,16 @@ export class DeviceListComponent implements OnInit {
 
   ngOnInit() {
     console.log('Device List initiated');
+
+    this.deviceService.getScanEnabled().subscribe({
+      next: (data: Boolean) => {
+        console.log('Scan is:', (data ? 'enabled' : 'disabled'));
+        this.scanEnabled = data;
+      },
+      error: err => {
+        console.error('Failed to load scan status:', err);
+      }
+    });
 
     this.deviceService.getAllDevices().subscribe({
       next: (data: Device[]) => {
@@ -64,6 +75,18 @@ export class DeviceListComponent implements OnInit {
         console.error('Error updating trusted status:', error);
       }
     });
+  }
+
+  toggleScan() {
+    this.deviceService.setScanEnabled(!this.scanEnabled).subscribe({
+      next: (result: Boolean) => {
+        console.log('Scan status set to:', result.toString())
+      },
+      error: (error) => {
+        console.error('Error setting scan status:', error);
+      }
+    })
+    this.scanEnabled = !this.scanEnabled;
   }
 
 }
