@@ -30,7 +30,6 @@ jobs:
           find / -type f -name gradle.properties 2>/dev/null || true
           find / -type d -name caches 2>/dev/null || true
 
-
       - name: Enable debug for setup-java
         run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
 
