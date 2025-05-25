@@ -24,4 +24,5 @@ export class DeviceService {
       params: { trusted: trusted.toString() }
     });
   }
+
 }
