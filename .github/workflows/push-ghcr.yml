@@ -1,0 +1,25 @@
+name: Build and Push to GHCR
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        run: echo "${{ secrets.GHCR_PAT }}" | docker login ghcr.io -u dannyi9 --password-stdin
+
+      - name: Build and Push Docker image
+        run: |
+          docker build -t ghcr.io/dannyi9/lansentinel/temurin-nmap:latest -f .github/workflows/Dockerfile .
+          docker push ghcr.io/dannyi9/lansentinel/temurin-nmap:latest
