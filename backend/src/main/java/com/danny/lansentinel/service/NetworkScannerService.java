@@ -89,7 +89,7 @@ public class NetworkScannerService {
         return scanEnabled;
     }
 
-    public Boolean enableScan(Boolean enable) {
+    public Boolean setScanEnabled(Boolean enable) {
         scanEnabled = enable;
         System.out.println("Network scan status set to: " + (scanEnabled ? "ENABLED" : "DISABLED"));
         return scanEnabled;

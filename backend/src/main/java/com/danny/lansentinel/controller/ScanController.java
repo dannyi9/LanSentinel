@@ -19,13 +19,13 @@ public class ScanController {
     }
 
     @GetMapping("/scan/enabled")
-    public Boolean checkScanEnabled() {
-        return networkScannerService.isScanEnabled();
+    public ResponseEntity<Boolean> checkScanEnabled() {
+        return ResponseEntity.ok(networkScannerService.isScanEnabled());
     }
 
     @GetMapping("/scan/enable/{enabled}")
-    public Boolean enableScan(@PathVariable Boolean enabled) {
-        return networkScannerService.enableScan(enabled);
+    public ResponseEntity<Boolean> enableScan(@PathVariable Boolean enabled) {
+        return ResponseEntity.ok(networkScannerService.setScanEnabled(enabled));
     }
 
 }
