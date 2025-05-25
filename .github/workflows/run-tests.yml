@@ -38,10 +38,10 @@ jobs:
 
       - name: Show cache result
         run: |
-          if [[ "${{ steps.gradle-cache.outputs.cache-hit }}" == "true" ]]; then
-            echo "✅ Cache restored"
+          if [ "${{ steps.gradle-cache.outputs.cache-hit }}" = "true" ]; then
+            echo "✅ Gradle cache restored"
           else
-            echo "❌ Cache miss"
+            echo "❌ Gradle cache miss"
           fi
 
       - name: Set up JDK 21
