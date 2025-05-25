@@ -1,32 +1,41 @@
 <h2>Devices</h2>
 
-<p>Scan Enabled: {{ this.scanEnabled }}</p>
-<button
-  (click)="toggleScan()"
->
-  Toggle scan
-</button>
-<p>Scan interval: {{ this.scanInterval }}ms ({{ this.scanInterval/1000 }}s)</p>
+<p><strong>Scan Enabled:</strong> {{ scanEnabled }}</p>
+<button (click)="toggleScan()">Toggle Scan</button>
 
+<p><strong>Scan Interval:</strong> {{ scanInterval }}ms ({{ scanInterval / 1000 }}s)</p>
 
-<li *ngFor="let device of devices">
-  <button
-    [disabled]="!device.id"
-    (click)="selectDevice(device)"
-  >
-    Select
-  </button>
-  <button
-    [disabled]="!device.id"
-    [ngClass]="device.trusted ? 'trusted' : 'untrusted'"
-    (click)="setTrustedDevice(device, !device.trusted)"
-  >
-    {{ device.trusted ? 'Untrust' : 'Trust' }}
-  </button>
-  {{ device.hostname || '(unknown)'}} - ({{device.ipAddress}}) - {{device.trusted ? 'Trusted ✅' : 'Untrusted ❌'}}
-</li>
+<table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+  <thead>
+  <tr>
+    <th style="text-align: left;">Actions</th>
+    <th style="text-align: left;">Hostname</th>
+    <th style="text-align: left;">IP Address</th>
+    <th style="text-align: left;">Status</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let device of devices">
+    <td>
+      <button [disabled]="!device.id" (click)="selectDevice(device)">Select</button>
+      <button
+        [disabled]="!device.id"
+        [ngClass]="device.trusted ? 'trusted' : 'untrusted'"
+        (click)="setTrustedDevice(device, !device.trusted)"
+      >
+        {{ device.trusted ? 'Untrust' : 'Trust' }}
+      </button>
+    </td>
+    <td>{{ device.hostname || '(unknown)' }}</td>
+    <td>{{ device.ipAddress }}</td>
+    <td [ngClass]="device.trusted ? 'trusted' : 'untrusted'">
+      {{ device.trusted ? 'Trusted ✅' : 'Untrusted ❌' }}
+    </td>
+  </tr>
+  </tbody>
+</table>
 
-<div *ngIf="selectedDevice" style="margin-top: 20px;">
+<div *ngIf="selectedDevice" style="margin-top: 25px;">
   <h3>Details</h3>
   <p><strong>ID:</strong> {{ selectedDevice.id }}</p>
   <p><strong>Hostname:</strong> {{ selectedDevice.hostname }}</p>

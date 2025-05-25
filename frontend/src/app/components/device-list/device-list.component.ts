@@ -20,8 +20,6 @@ export class DeviceListComponent implements OnInit {
   constructor(private deviceService: DeviceService) {}
 
   ngOnInit() {
-    console.log('Device List initiated');
-
     this.deviceService.getScanEnabled().subscribe({
       next: (data: Boolean) => {
         console.log('Scan is:', (data ? 'enabled' : 'disabled'));
