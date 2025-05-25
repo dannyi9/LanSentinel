@@ -19,6 +19,18 @@ public class ScanController {
         this.networkScanScheduler = networkScanScheduler;
     }
 
+    public static class IntervalRequest {
+        private Long interval;
+
+        public Long getInterval() {
+            return interval;
+        }
+
+        public void setInterval(Long interval) {
+            this.interval = interval;
+        }
+    }
+
     @GetMapping("/enabled")
     public ResponseEntity<Boolean> checkScanEnabled() {
         return ResponseEntity.ok(networkScannerService.isScanEnabled());
@@ -32,6 +44,11 @@ public class ScanController {
     @GetMapping("/interval")
     public ResponseEntity<Long> getScanInterval() {
         return ResponseEntity.ok(networkScanScheduler.getScanIntervalMs());
+    }
+
+    @PutMapping("/setinterval")
+    public ResponseEntity<Long> setScanInterval(@RequestBody IntervalRequest req) {
+        return ResponseEntity.ok(networkScanScheduler.updateScanInterval(req.getInterval()));
     }
 
 }

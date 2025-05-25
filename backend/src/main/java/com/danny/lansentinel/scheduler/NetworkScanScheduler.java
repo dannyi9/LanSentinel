@@ -37,12 +37,14 @@ public class NetworkScanScheduler {
         );
     }
 
-    public void updateScanInterval(long newIntervalMs) {
+    public long updateScanInterval(long newIntervalMs) {
+        System.out.println("Updating network scan interval to " + newIntervalMs);
         this.scanIntervalMs = newIntervalMs;
         if (scheduledFuture != null) {
             scheduledFuture.cancel(false);
         }
         scheduleTask();
+        return this.scanIntervalMs;
     }
 
     public long getScanIntervalMs() {
