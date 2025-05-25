@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping("/devices")
 public class DeviceController {
 
     private final DeviceRepository deviceRepository;
@@ -16,24 +17,24 @@ public class DeviceController {
         this.deviceRepository = deviceRepository;
     }
 
-    @GetMapping("/devices/all")
+    @GetMapping("/all")
     public List<Device> getAllDevices() {
         return deviceRepository.findAll();
     }
 
-    @GetMapping("/devices/{id}")
+    @GetMapping("/{id}")
     public Device getDeviceById(@PathVariable Long id) {
         return deviceRepository.findById(id).orElse(null);
     }
 
-    @GetMapping("/devices/{id}/trusted")
+    @GetMapping("/{id}/trusted")
     public ResponseEntity<Boolean> isTrusted(@PathVariable Long id) {
         return deviceRepository.findById(id)
                 .map(device -> ResponseEntity.ok(device.isTrusted()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/devices/{id}/trust")
+    @PutMapping("/{id}/trust")
     public ResponseEntity<Device> setDeviceTrusted(@PathVariable Long id, @RequestParam boolean trusted) {
         return deviceRepository.findById(id).map(device -> {
             device.setTrusted(trusted);

@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/scan")
 public class ScanController {
 
     NetworkScannerService networkScannerService;
@@ -14,12 +15,12 @@ public class ScanController {
         this.networkScannerService = networkScannerService;
     }
 
-    @GetMapping("/scan/enabled")
+    @GetMapping("/enabled")
     public ResponseEntity<Boolean> checkScanEnabled() {
         return ResponseEntity.ok(networkScannerService.isScanEnabled());
     }
 
-    @GetMapping("/scan/enable/{enabled}")
+    @GetMapping("/enable/{enabled}")
     public ResponseEntity<Boolean> enableScan(@PathVariable Boolean enabled) {
         return ResponseEntity.ok(networkScannerService.setScanEnabled(enabled));
     }
