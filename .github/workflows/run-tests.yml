@@ -24,12 +24,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Print Gradle directories
-        run: |
-          find / -type d -name wrapper 2>/dev/null || true
-          find / -type f -name gradle.properties 2>/dev/null || true
-          find / -type d -name caches 2>/dev/null || true
-
       - name: Enable debug for setup-java
         run: echo "ACTIONS_STEP_DEBUG=true" >> $GITHUB_ENV
 
