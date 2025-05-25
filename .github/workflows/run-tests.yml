@@ -9,7 +9,7 @@ on:
       - master
 
 jobs:
-  run-spring-boot-test:
+  spring-boot-test:
     runs-on: ubuntu-latest
 
     container:
