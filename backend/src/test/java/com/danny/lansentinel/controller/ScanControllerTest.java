@@ -28,8 +28,8 @@ class ScanControllerTest {
         networkScannerService = Mockito.mock(NetworkScannerService.class);
         networkScanScheduler = Mockito.mock(NetworkScanScheduler.class);
 
-        ScanController controller = new ScanController(networkScannerService, networkScanScheduler);
-        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+        ScanController scanController = new ScanController(networkScannerService, networkScanScheduler);
+        mockMvc = MockMvcBuilders.standaloneSetup(scanController).build();
     }
 
     @Test

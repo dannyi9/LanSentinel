@@ -1,18 +1,15 @@
-package com.danny.lansentinel;
+package com.danny.lansentinel.controller;
 
-import com.danny.lansentinel.controller.DeviceController;
 import com.danny.lansentinel.entity.Device;
 import com.danny.lansentinel.repository.DeviceRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -22,14 +19,9 @@ import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(DeviceController.class)
-@Import(DeviceControllerTest.Config.class)
 class DeviceControllerTest {
 
-    @Autowired
     private MockMvc mockMvc;
-
-    @Autowired
     private DeviceRepository mockRepo;
 
     private Device device1;
@@ -37,6 +29,10 @@ class DeviceControllerTest {
 
     @BeforeEach
     void setUp() {
+        mockRepo = Mockito.mock(DeviceRepository.class);
+        DeviceController controller = new DeviceController(mockRepo);
+        mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
+
         device1 = new Device();
         device1.setHostname("Device1");
         device1.setIpAddress("192.168.0.2");
