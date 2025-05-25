@@ -21,7 +21,7 @@ export class DeviceListComponent implements OnInit {
     console.log('Device List initiated');
 
     this.deviceService.getAllDevices().subscribe({
-      next: data => {
+      next: (data: Device[]) => {
         console.log('Loaded devices:', data);
         this.devices = data;
       },
@@ -38,7 +38,7 @@ export class DeviceListComponent implements OnInit {
     }
 
     this.deviceService.getDeviceById(device.id).subscribe({
-      next: data => {
+      next: (data: Device) => {
         this.selectedDevice = data;
       },
       error: err => {
