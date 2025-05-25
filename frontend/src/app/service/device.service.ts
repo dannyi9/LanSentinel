@@ -8,7 +8,6 @@ import {Observable} from 'rxjs';
 })
 export class DeviceService {
   private apiUrl = 'http://localhost:8080/devices';
-  private scanUrl = 'http://localhost:8080/scan';
 
   constructor(private http: HttpClient) {}
 
