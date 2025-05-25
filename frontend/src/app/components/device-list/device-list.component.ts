@@ -15,6 +15,7 @@ export class DeviceListComponent implements OnInit {
   scanEnabled: Boolean = true;
   devices: Device[] = [];
   selectedDevice: Device | null = null;
+  scanInterval: number = 0;
 
   constructor(private deviceService: DeviceService) {}
 
@@ -38,6 +39,15 @@ export class DeviceListComponent implements OnInit {
       },
       error: err => {
         console.error('Failed to load devices:', err);
+      }
+    });
+
+    this.deviceService.getScanInterval().subscribe({
+      next: (data: number) => {
+        this.scanInterval = data;
+      },
+      error: err => {
+        console.error('Failed to get scan interval:', err);
       }
     });
   }

@@ -1,12 +1,12 @@
 <h2>Devices</h2>
 
 <p>Scan Enabled: {{ this.scanEnabled }}</p>
-
 <button
   (click)="toggleScan()"
 >
   Toggle scan
 </button>
+<p>Scan interval: {{ this.scanInterval }}ms ({{ this.scanInterval/1000 }}s)</p>
 
 
 <li *ngFor="let device of devices">

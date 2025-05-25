@@ -33,4 +33,8 @@ export class DeviceService {
   setScanEnabled(enabled: boolean): Observable<Boolean> {
     return this.http.get<Boolean>(`${this.scanUrl}/enable/${enabled}`);
   }
+
+  getScanInterval(): Observable<number> {
+    return this.http.get<number>(`${this.scanUrl}/interval`);
+  }
 }
