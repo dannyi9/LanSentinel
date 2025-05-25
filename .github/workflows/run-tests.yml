@@ -12,6 +12,12 @@ jobs:
   test:
     runs-on: ubuntu-latest
 
+    container:
+      image: ghcr.io/dannyi9/lansentinel/temurin-nmap:latest
+      credentials:
+        username: dannyi9
+        password: ${{ secrets.GHCR_PAT }}
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -33,9 +39,6 @@ jobs:
 
       - name: Grant execute permission for gradlew
         run: chmod +x backend/gradlew
-
-      - name: Install nmap
-        run: sudo apt-get update && sudo apt-get install -y nmap
 
       - name: Run tests
         working-directory: backend
