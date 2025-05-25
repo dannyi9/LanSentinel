@@ -1,4 +1,4 @@
-package com.danny.lansentinel;
+package com.danny.lansentinel.scheduler;
 
 import com.danny.lansentinel.config.ScanProperties;
 import com.danny.lansentinel.service.NetworkScannerService;
