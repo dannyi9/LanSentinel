@@ -1,20 +1,22 @@
-<div class="scan-status">
-  <span class="status-indicator" [ngClass]="scanEnabled ? 'enabled' : 'disabled'"></span>
-  <strong>Scan Enabled:</strong> {{ scanEnabled ? 'Yes' : 'No' }}
-  <button class="toggle-btn" (click)="toggleScan()">Toggle Scan</button>
+<div class="scan-controls">
+  <div class="scan-status">
+    <span class="status-indicator" [ngClass]="scanEnabled ? 'enabled' : 'disabled'"></span>
+    <strong>Scan Enabled:</strong> {{ scanEnabled ? 'Yes' : 'No' }}
+    <button class="toggle-btn" (click)="toggleScan()">Toggle Scan</button>
+  </div>
+
+  <div class="scan-interval">
+    <strong>Interval:</strong> {{ scanInterval }}ms ({{ scanInterval / 1000 }}s)
+    <label for="interval">Set: </label>
+    <select id="interval" [value]="scanInterval" (change)="updateInterval($event)">
+      <option [value]="10000">10s</option>
+      <option [value]="30000">30s</option>
+      <option [value]="60000">60s</option>
+    </select>
+  </div>
 </div>
 
-<div class="scan-interval">
-  <strong>Scan Interval:</strong> {{ scanInterval }}ms ({{ scanInterval / 1000 }}s)
-  <label for="interval" style="margin-left: 10px;">Set interval: </label>
-  <select id="interval" [value]="scanInterval" (change)="updateInterval($event)">
-    <option [value]="10000">10s</option>
-    <option [value]="30000">30s</option>
-    <option [value]="60000">60s</option>
-  </select>
-</div>
-
-<h2 style="margin-bottom: 20px;">Devices</h2>
+<h2 style="margin-bottom: 25px;">Devices</h2>
 
 <table class="device-table">
   <thead>
