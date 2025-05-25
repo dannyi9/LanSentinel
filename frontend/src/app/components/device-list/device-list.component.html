@@ -4,6 +4,12 @@
 <button (click)="toggleScan()">Toggle Scan</button>
 
 <p><strong>Scan Interval:</strong> {{ scanInterval }}ms ({{ scanInterval / 1000 }}s)</p>
+<label for="interval">Set scan interval: </label>
+<select id="interval" [value]="scanInterval" (change)="updateInterval($event)">
+  <option [value]="10000">10s</option>
+  <option [value]="30000" selected>30s</option>
+  <option [value]="60000">60s</option>
+</select>
 
 <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
   <thead>

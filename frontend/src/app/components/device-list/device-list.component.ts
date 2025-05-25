@@ -97,6 +97,21 @@ export class DeviceListComponent implements OnInit {
     this.scanEnabled = !this.scanEnabled;
   }
 
+  updateInterval(event: Event) {
+    const value = (event.target as HTMLSelectElement).value;
+    const interval = Number(value);
+
+    this.deviceService.setScanInterval(interval).subscribe({
+      next: (response: number) => {
+        console.log('Scan interval successfully set on backend:', response);
+        this.scanInterval = response;
+      },
+      error: (err) => {
+        console.error('Failed to set scan interval:', err);
+      }
+    });
+  }
+
 }
 
 

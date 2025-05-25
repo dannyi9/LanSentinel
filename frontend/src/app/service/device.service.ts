@@ -37,4 +37,10 @@ export class DeviceService {
   getScanInterval(): Observable<number> {
     return this.http.get<number>(`${this.scanUrl}/interval`);
   }
+
+  setScanInterval(intervalToSet: number): Observable<number> {
+    return this.http.put<number>(`${this.scanUrl}/setinterval`, {
+      interval: intervalToSet
+    });
+  }
 }
