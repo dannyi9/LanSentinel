@@ -1,11 +1,15 @@
 <h2>Devices</h2>
 
+<button>Settings</button>
+
 <li *ngFor="let device of devices">
   <button
+    [disabled]="!device.id"
     (click)="selectDevice(device)"
   >Select</button>
   <button
     [disabled]="!device.id"
+    [ngClass]="device.trusted ? 'trusted' : 'untrusted'"
     (click)="setTrustedDevice(device, !device.trusted)"
   >
     {{ device.trusted ? 'Untrust' : 'Trust' }}
@@ -15,6 +19,7 @@
 
 <div *ngIf="selectedDevice" style="margin-top: 20px;">
   <h3>Details</h3>
+  <p><strong>ID:</strong> {{ selectedDevice.id }}</p>
   <p><strong>Hostname:</strong> {{ selectedDevice.hostname }}</p>
   <p><strong>IP Address:</strong> {{ selectedDevice.ipAddress }}</p>
   <p><strong>OS:</strong> {{ selectedDevice.os }}</p>
