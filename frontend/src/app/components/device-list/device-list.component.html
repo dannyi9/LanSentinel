@@ -1,31 +1,37 @@
-<h2>Devices</h2>
+<div class="scan-status">
+  <span class="status-indicator" [ngClass]="scanEnabled ? 'enabled' : 'disabled'"></span>
+  <strong>Scan Enabled:</strong> {{ scanEnabled ? 'Yes' : 'No' }}
+  <button class="toggle-btn" (click)="toggleScan()">Toggle Scan</button>
+</div>
 
-<p><strong>Scan Enabled:</strong> {{ scanEnabled }}</p>
-<button (click)="toggleScan()">Toggle Scan</button>
+<div class="scan-interval">
+  <strong>Scan Interval:</strong> {{ scanInterval }}ms ({{ scanInterval / 1000 }}s)
+  <label for="interval" style="margin-left: 10px;">Set interval: </label>
+  <select id="interval" [value]="scanInterval" (change)="updateInterval($event)">
+    <option [value]="10000">10s</option>
+    <option [value]="30000">30s</option>
+    <option [value]="60000">60s</option>
+  </select>
+</div>
 
-<p><strong>Scan Interval:</strong> {{ scanInterval }}ms ({{ scanInterval / 1000 }}s)</p>
-<label for="interval">Set scan interval: </label>
-<select id="interval" [value]="scanInterval" (change)="updateInterval($event)">
-  <option [value]="10000">10s</option>
-  <option [value]="30000" selected>30s</option>
-  <option [value]="60000">60s</option>
-</select>
+<h2 style="margin-bottom: 20px;">Devices</h2>
 
-<table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+<table class="device-table">
   <thead>
-  <tr>
-    <th style="text-align: left;">Actions</th>
-    <th style="text-align: left;">Hostname</th>
-    <th style="text-align: left;">IP Address</th>
-    <th style="text-align: left;">Status</th>
+  <tr style="text-align: left;">
+    <th>Actions</th>
+    <th>Hostname</th>
+    <th>IP Address</th>
+    <th>Status</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let device of devices">
     <td>
-      <button [disabled]="!device.id" (click)="selectDevice(device)">Select</button>
+      <button class="select-btn" [disabled]="!device.id" (click)="selectDevice(device)">Select</button>
       <button
         [disabled]="!device.id"
+        class="trust-btn"
         [ngClass]="device.trusted ? 'trusted' : 'untrusted'"
         (click)="setTrustedDevice(device, !device.trusted)"
       >
@@ -34,15 +40,17 @@
     </td>
     <td>{{ device.hostname || '(unknown)' }}</td>
     <td>{{ device.ipAddress }}</td>
-    <td [ngClass]="device.trusted ? 'trusted' : 'untrusted'">
-      {{ device.trusted ? 'Trusted ✅' : 'Untrusted ❌' }}
+    <td>
+        <span class="status-pill" [ngClass]="device.trusted ? 'trusted' : 'untrusted'">
+          {{ device.trusted ? 'Trusted ✅' : 'Untrusted ❌' }}
+        </span>
     </td>
   </tr>
   </tbody>
 </table>
 
-<div *ngIf="selectedDevice" style="margin-top: 25px;">
-  <h3>Details</h3>
+<div *ngIf="selectedDevice" class="device-details-card">
+  <h3>Device Details</h3>
   <p><strong>ID:</strong> {{ selectedDevice.id }}</p>
   <p><strong>Hostname:</strong> {{ selectedDevice.hostname }}</p>
   <p><strong>IP Address:</strong> {{ selectedDevice.ipAddress }}</p>
