@@ -13,7 +13,6 @@ It scans your network for connected devices, identifies open ports, and detects 
 - **TODO - Port Scanning & Vulnerability Detection**: Scans devices for open ports and identifies potential security threats.
 - **TODO - Device Classification**: Groups devices based on identifiers like HTTP server strings, device type, and more.
 - **TODO - Notifications & Alerts**: Receive real-time alerts for suspicious activities such as unknown devices or unusual port scans.
-- **TODO - User-Friendly Web Interface**: Visualise the status of your network with an intuitive and responsive UI.
 - **TODO - Customizable Scans**: Tailor your scans by selecting the IP range, port range, and notification settings.
 
 ## 🔧 Installation
