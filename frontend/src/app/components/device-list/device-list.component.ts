@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {Device} from '../../model/device.model';
 import {DeviceService} from '../../service/device.service';
+import {ScanService} from '../../service/scan.service';
 
 @Component({
   selector: 'app-device-list',
@@ -17,10 +18,11 @@ export class DeviceListComponent implements OnInit {
   selectedDevice: Device | null = null;
   scanInterval: number = 0;
 
-  constructor(private deviceService: DeviceService) {}
+  constructor(private deviceService: DeviceService,
+              private scanService: ScanService) {}
 
   ngOnInit() {
-    this.deviceService.getScanEnabled().subscribe({
+    this.scanService.getScanEnabled().subscribe({
       next: (data: Boolean) => {
         console.log('Scan is:', (data ? 'enabled' : 'disabled'));
         this.scanEnabled = data;
@@ -40,7 +42,7 @@ export class DeviceListComponent implements OnInit {
       }
     });
 
-    this.deviceService.getScanInterval().subscribe({
+    this.scanService.getScanInterval().subscribe({
       next: (data: number) => {
         this.scanInterval = data;
       },
@@ -86,7 +88,7 @@ export class DeviceListComponent implements OnInit {
   }
 
   toggleScan() {
-    this.deviceService.setScanEnabled(!this.scanEnabled).subscribe({
+    this.scanService.setScanEnabled(!this.scanEnabled).subscribe({
       next: (result: Boolean) => {
         console.log('Scan status set to:', (result ? 'ENABLED' : 'DISABLED'))
       },
@@ -101,7 +103,7 @@ export class DeviceListComponent implements OnInit {
     const value = (event.target as HTMLSelectElement).value;
     const interval = Number(value);
 
-    this.deviceService.setScanInterval(interval).subscribe({
+    this.scanService.setScanInterval(interval).subscribe({
       next: (response: number) => {
         console.log('Scan interval successfully set on backend:', response);
         this.scanInterval = response;
