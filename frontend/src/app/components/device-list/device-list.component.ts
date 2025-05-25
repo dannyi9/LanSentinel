@@ -80,7 +80,7 @@ export class DeviceListComponent implements OnInit {
   toggleScan() {
     this.deviceService.setScanEnabled(!this.scanEnabled).subscribe({
       next: (result: Boolean) => {
-        console.log('Scan status set to:', result.toString())
+        console.log('Scan status set to:', (result ? 'ENABLED' : 'DISABLED'))
       },
       error: (error) => {
         console.error('Error setting scan status:', error);
