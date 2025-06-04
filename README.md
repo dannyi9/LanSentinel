@@ -19,7 +19,7 @@ It scans your network for connected devices, identifies open ports, and detects 
 
 ### Prerequisites
 
-- **Java 21** or higher
+- **Java 21**
 - Git
 - A working network connection
 - Nmap installed (unless using Docker)
