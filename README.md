@@ -23,3 +23,7 @@ It scans your network for connected devices, identifies open ports, and detects 
 - Git
 - A working network connection
 - Nmap installed (unless using Docker)
+
+## ⚙️ Run
+- Run backend: ./backend/gradlew -p backend dockerBuildRun
+- 
