@@ -26,4 +26,3 @@ It scans your network for connected devices, identifies open ports, and detects 
 
 ## ⚙️ Run
 - Run backend: ./backend/gradlew -p backend dockerBuildRun
-- 
