@@ -30,14 +30,14 @@ public class DeviceController {
     @GetMapping("/{id}/trusted")
     public ResponseEntity<Boolean> isTrusted(@PathVariable Long id) {
         return deviceRepository.findById(id)
-                .map(device -> ResponseEntity.ok(device.isTrusted()))
+                .map(device -> ResponseEntity.ok(device.getIsTrusted()))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}/trust")
     public ResponseEntity<Device> setDeviceTrusted(@PathVariable Long id, @RequestParam boolean trusted) {
         return deviceRepository.findById(id).map(device -> {
-            device.setTrusted(trusted);
+            device.setIsTrusted(trusted);
             deviceRepository.save(device);
             return ResponseEntity.ok(device);
         }).orElse(ResponseEntity.notFound().build());
