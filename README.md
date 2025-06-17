@@ -25,4 +25,5 @@ It scans your network for connected devices, identifies open ports, and detects 
 - Nmap installed (unless using Docker)
 
 ## ⚙️ Run
-- Run backend: ./backend/gradlew -p backend dockerBuildRun
+- Run backend: ```./backend/gradlew -p backend dockerBuildRun```
+- Run frontend: ``cd frontend && ng serve``
