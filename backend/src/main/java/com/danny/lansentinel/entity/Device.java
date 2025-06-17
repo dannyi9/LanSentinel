@@ -4,10 +4,12 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
+@Data
 @Entity
 public class Device {
 
@@ -31,60 +33,4 @@ public class Device {
     private Boolean isTrusted;
 
     private String notes;
-
-    public Long getId() {
-        return this.id;
-    }
-
-    public String getHostname() {
-        return this.hostname;
-    }
-
-    public String getIpAddress() {
-        return this.ipAddress;
-    }
-
-    public String getMacAddress() {
-        return this.macAddress;
-    }
-
-    public String getVendor() {
-        return this.vendor;
-    }
-
-    public LocalDateTime getLastSeen() {
-        return this.lastSeen;
-    }
-
-    public Boolean isTrusted() {
-        return this.isTrusted;
-    }
-
-    public void setHostname(String hostname) {
-        this.hostname = hostname;
-    }
-
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
-
-    public void setMacAddress(String macAddress) {
-        this.macAddress = macAddress;
-    }
-
-    public void setVendor(String vendor) {
-        this.vendor = vendor;
-    }
-
-    public void setIsOnline(Boolean isOnline) {
-        this.isOnline = isOnline;
-    }
-
-    public void setLastSeen(LocalDateTime lastSeen) {
-        this.lastSeen = lastSeen;
-    }
-
-    public void setTrusted(Boolean isTrusted) {
-        this.isTrusted = isTrusted;
-    }
 }
