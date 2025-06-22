@@ -10,8 +10,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class NetworkScannerService {
@@ -57,6 +59,8 @@ public class NetworkScannerService {
 
         System.out.println("Starting network scan for subnet: " + subnet);
 
+        Set<String> seenMacs = new HashSet<>();
+
         try {
             Process process = new ProcessBuilder("nmap", "-sn", subnet)
                     .redirectErrorStream(true)
@@ -79,6 +83,19 @@ public class NetworkScannerService {
 
                 if (currentDevice != null) {
                     saveDevice(currentDevice);
+                    if (currentDevice.getMacAddress() != null) {
+                        seenMacs.add(currentDevice.getMacAddress());
+                    }
+                }
+            }
+
+            // Mark unseen devices as offline
+            List<Device> devices = deviceRepository.findAll();
+            for (Device device : devices) {
+                String mac = device.getMacAddress();
+                if (mac != null && !seenMacs.contains(mac) && device.getIsOnline()) {
+                    device.setIsOnline(false);
+                    deviceRepository.save(device);
                 }
             }
 
