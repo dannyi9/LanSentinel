@@ -1,6 +1,7 @@
 package com.danny.lansentinel.service;
 
 import com.danny.lansentinel.entity.Device;
+import com.danny.lansentinel.kafka.DeviceEventPublisher;
 import com.danny.lansentinel.repository.DeviceRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +17,14 @@ import java.util.Optional;
 public class NetworkScannerService {
 
     private final DeviceRepository deviceRepository;
+    private final DeviceEventPublisher deviceEventPublisher;
 
     private boolean scanEnabled = true;
 
-    public NetworkScannerService(DeviceRepository deviceRepository) {
+    public NetworkScannerService(DeviceRepository deviceRepository,
+                                 DeviceEventPublisher deviceEventPublisher) {
         this.deviceRepository = deviceRepository;
+        this.deviceEventPublisher = deviceEventPublisher;
     }
 
     public String formatDateTime(LocalDateTime time) {
@@ -43,6 +47,7 @@ public class NetworkScannerService {
             device.setIsOnline(true);
             device.setLastSeen(LocalDateTime.now());
             deviceRepository.save(device);
+            deviceEventPublisher.publishDevice(device);
         }
     }
 
