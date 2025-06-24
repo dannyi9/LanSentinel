@@ -52,7 +52,7 @@ class DeviceControllerTest {
 
     @Test
     void getAllDevices_shouldReturnDevices() throws Exception {
-        mockMvc.perform(get("/devices/all"))
+        mockMvc.perform(get("/devices"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].hostname", is("Device1")))

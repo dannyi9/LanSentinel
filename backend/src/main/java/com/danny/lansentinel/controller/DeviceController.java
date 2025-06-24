@@ -17,7 +17,7 @@ public class DeviceController {
         this.deviceRepository = deviceRepository;
     }
 
-    @GetMapping("/all")
+    @GetMapping
     public List<Device> getAllDevices() {
         return deviceRepository.findAll();
     }
