@@ -28,14 +28,14 @@ public class DeviceController {
     public ResponseEntity<Device> getDeviceById(@PathVariable Long id) {
         return deviceRepository.findById(id)
                 .map(ResponseEntity::ok)
-                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/{id}/trusted")
     public ResponseEntity<Boolean> isTrusted(@PathVariable Long id) {
         return deviceRepository.findById(id)
                 .map(device -> ResponseEntity.ok(device.getIsTrusted()))
-                .orElseGet(() -> ResponseEntity.notFound().build());
+                .orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}/trust")
