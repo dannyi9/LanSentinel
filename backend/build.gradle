@@ -25,6 +25,7 @@ dependencies {
     implementation 'com.fasterxml.jackson.core:jackson-databind'
     implementation 'com.h2database:h2'
     implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
+    implementation 'org.slf4j:slf4j-api:2.0.17'
     compileOnly("org.projectlombok:lombok:1.18.38")
     annotationProcessor("org.projectlombok:lombok:1.18.38")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
