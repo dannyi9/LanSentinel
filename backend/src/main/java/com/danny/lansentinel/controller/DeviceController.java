@@ -2,6 +2,7 @@ package com.danny.lansentinel.controller;
 
 import com.danny.lansentinel.entity.Device;
 import com.danny.lansentinel.repository.DeviceRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,13 +19,16 @@ public class DeviceController {
     }
 
     @GetMapping
-    public List<Device> getAllDevices() {
-        return deviceRepository.findAll();
+    public ResponseEntity<List<Device>> getAllDevices() {
+        List<Device> devices = deviceRepository.findAll();
+        return ResponseEntity.ok(devices);
     }
 
     @GetMapping("/{id}")
-    public Device getDeviceById(@PathVariable Long id) {
-        return deviceRepository.findById(id).orElse(null);
+    public ResponseEntity<Device> getDeviceById(@PathVariable Long id) {
+        return deviceRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     @GetMapping("/{id}/trusted")

@@ -67,10 +67,9 @@ class DeviceControllerTest {
     }
 
     @Test
-    void getDeviceById_shouldReturnNull() throws Exception {
+    void getDeviceById_shouldReturnNotFound() throws Exception {
         mockMvc.perform(get("/devices/1337"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(""));
+                .andExpect(status().isNotFound());
     }
 
     @TestConfiguration
