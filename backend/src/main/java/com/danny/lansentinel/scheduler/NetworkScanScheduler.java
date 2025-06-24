@@ -2,6 +2,8 @@ package com.danny.lansentinel.scheduler;
 
 import com.danny.lansentinel.config.ScanProperties;
 import com.danny.lansentinel.service.NetworkScannerService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.stereotype.Component;
 
@@ -10,6 +12,8 @@ import java.util.concurrent.ScheduledFuture;
 
 @Component
 public class NetworkScanScheduler {
+
+    private static final Logger logger = LoggerFactory.getLogger(NetworkScanScheduler.class);
 
     private final NetworkScannerService networkScannerService;
     private final ScanProperties scanProperties;
@@ -37,8 +41,8 @@ public class NetworkScanScheduler {
         );
     }
 
-    public long updateScanInterval(long newIntervalMs) {
-        System.out.println("Updating network scan interval to " + newIntervalMs);
+    public synchronized long updateScanInterval(long newIntervalMs) {
+        logger.info("Updating network scan interval to {}", newIntervalMs);
         this.scanIntervalMs = newIntervalMs;
         if (scheduledFuture != null) {
             scheduledFuture.cancel(false);
