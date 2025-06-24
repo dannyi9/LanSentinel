@@ -30,24 +30,40 @@ public class NetworkScanScheduler {
         this.scanProperties = scanProperties;
         this.taskScheduler = threadPoolTaskScheduler;
         this.scanIntervalMs = scanProperties.getScanIntervalMs();
-        scheduleTask();
+        scheduleScanTask();
     }
 
-    private void scheduleTask() {
+    private void runNetworkScan(String subnet) {
+        networkScannerService.scanAndSaveDevices(subnet);
+    }
+
+    private void scheduleScanTask() {
+        String subnetToScan = scanProperties.getSubnetToScan();
+        if (subnetToScan == null || subnetToScan.isEmpty()) {
+            logger.warn("No subnet to configured, skipping scan");
+            return;
+        }
+
         System.out.println("Scheduling network scan task");
         scheduledFuture = taskScheduler.scheduleWithFixedDelay(
-                () -> networkScannerService.scanAndSaveDevices(scanProperties.getSubnetToScan()),
+                    () -> runNetworkScan(subnetToScan),
                 Duration.ofMillis(scanIntervalMs)
         );
     }
 
     public synchronized long updateScanInterval(long newIntervalMs) {
+        if (this.scanIntervalMs == newIntervalMs) {
+            logger.info("Interval unchanged, no reschedule needed");
+            return this.scanIntervalMs;
+        }
+
         logger.info("Updating network scan interval to {}", newIntervalMs);
         this.scanIntervalMs = newIntervalMs;
+
         if (scheduledFuture != null) {
             scheduledFuture.cancel(false);
         }
-        scheduleTask();
+        scheduleScanTask();
         return this.scanIntervalMs;
     }
 
