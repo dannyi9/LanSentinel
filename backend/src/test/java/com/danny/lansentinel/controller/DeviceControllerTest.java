@@ -52,7 +52,7 @@ class DeviceControllerTest {
 
     @Test
     void getAllDevices_shouldReturnDevices() throws Exception {
-        mockMvc.perform(get("/devices"))
+        mockMvc.perform(get("/device"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)))
                 .andExpect(jsonPath("$[0].hostname", is("Device1")))
@@ -61,14 +61,14 @@ class DeviceControllerTest {
 
     @Test
     void getDeviceById_shouldReturnDevice() throws Exception {
-        mockMvc.perform(get("/devices/1"))
+        mockMvc.perform(get("/device/1"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.ipAddress", is("192.168.0.2")));
     }
 
     @Test
     void getDeviceById_shouldReturnNotFound() throws Exception {
-        mockMvc.perform(get("/devices/1337"))
+        mockMvc.perform(get("/device/1337"))
                 .andExpect(status().isNotFound());
     }
 
