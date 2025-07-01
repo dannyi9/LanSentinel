@@ -34,17 +34,17 @@
       <button
         [disabled]="!device.id"
         class="trust-btn"
-        [ngClass]="device.trusted ? 'trusted' : 'untrusted'"
-        (click)="setTrustedDevice(device, !device.trusted)"
+        [ngClass]="device.isTrusted ? 'trusted' : 'untrusted'"
+        (click)="setTrustedDevice(device, !device.isTrusted)"
       >
-        {{ device.trusted ? 'Untrust' : 'Trust' }}
+        {{ device.isTrusted ? 'Untrust' : 'Trust' }}
       </button>
     </td>
     <td>{{ device.hostname || '(unknown)' }}</td>
     <td>{{ device.ipAddress }}</td>
     <td>
-        <span class="status-pill" [ngClass]="device.trusted ? 'trusted' : 'untrusted'">
-          {{ device.trusted ? 'Trusted ✅' : 'Untrusted ❌' }}
+        <span class="status-pill" [ngClass]="device.isTrusted ? 'trusted' : 'untrusted'">
+          {{ device.isTrusted ? 'Trusted ✅' : 'Untrusted ❌' }}
         </span>
     </td>
   </tr>
@@ -58,4 +58,6 @@
   <p><strong>IP Address:</strong> {{ selectedDevice.ipAddress }}</p>
   <p *ngIf="selectedDevice.os"><strong>OS:</strong> {{ selectedDevice.os }}</p>
   <p><strong>Last Seen:</strong> {{ selectedDevice.lastSeen }}</p>
+  <p><strong>Created At:</strong> {{ selectedDevice.createdAt }}</p>
+  <p>Trusted: {{ selectedDevice.isTrusted }}</p>
 </div>

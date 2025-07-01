@@ -77,7 +77,7 @@ export class DeviceListComponent implements OnInit {
     this.deviceService.setTrustedDeviceById(device.id, isTrusted).subscribe({
       next: (updatedDevice: Device) => {
         console.log('Device trusted status updated:', updatedDevice);
-        device.trusted = updatedDevice.trusted;
+        device.isTrusted = updatedDevice.isTrusted;
       },
       error: (error) => {
         console.error('Error updating trusted status:', error);

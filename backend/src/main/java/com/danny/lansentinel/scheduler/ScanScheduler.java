@@ -1,7 +1,7 @@
 package com.danny.lansentinel.scheduler;
 
 import com.danny.lansentinel.config.ScanProperties;
-import com.danny.lansentinel.service.NetworkScannerService;
+import com.danny.lansentinel.service.ScanService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
@@ -11,11 +11,11 @@ import java.time.Duration;
 import java.util.concurrent.ScheduledFuture;
 
 @Component
-public class NetworkScanScheduler {
+public class ScanScheduler {
 
-    private static final Logger logger = LoggerFactory.getLogger(NetworkScanScheduler.class);
+    private static final Logger logger = LoggerFactory.getLogger(ScanScheduler.class);
 
-    private final NetworkScannerService networkScannerService;
+    private final ScanService scanService;
     private final ScanProperties scanProperties;
 
     private final ThreadPoolTaskScheduler taskScheduler;
@@ -23,10 +23,10 @@ public class NetworkScanScheduler {
 
     private long scanIntervalMs;
 
-    public NetworkScanScheduler(NetworkScannerService networkScannerService,
-                                ScanProperties scanProperties,
-                                ThreadPoolTaskScheduler threadPoolTaskScheduler) {
-        this.networkScannerService = networkScannerService;
+    public ScanScheduler(ScanService scanService,
+                         ScanProperties scanProperties,
+                         ThreadPoolTaskScheduler threadPoolTaskScheduler) {
+        this.scanService = scanService;
         this.scanProperties = scanProperties;
         this.taskScheduler = threadPoolTaskScheduler;
         this.scanIntervalMs = scanProperties.getScanIntervalMs();
@@ -34,7 +34,7 @@ public class NetworkScanScheduler {
     }
 
     private void runNetworkScan(String subnet) {
-        networkScannerService.scanAndSaveDevices(subnet);
+        scanService.scanAndSaveDevices(subnet);
     }
 
     private void scheduleScanTask() {
