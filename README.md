@@ -27,3 +27,7 @@ It scans your network for connected devices, identifies open ports, and detects 
 ## ⚙️ Run
 - Run backend: ```./backend/gradlew -p backend dockerBuildRun```
 - Run frontend: ``cd frontend && ng serve``
+
+## Screenshot
+
+![LanSentinel](https://github.com/user-attachments/assets/8365c475-afb4-421d-b2dd-438c13bf6183)
