@@ -29,6 +29,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.38")
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testImplementation("com.h2database:h2")
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
