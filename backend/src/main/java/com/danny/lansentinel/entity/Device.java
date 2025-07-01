@@ -12,7 +12,6 @@ import java.util.List;
 @Data
 @Entity
 public class Device {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -29,6 +28,7 @@ public class Device {
 
     private Boolean isOnline;
     private LocalDateTime lastSeen;
+    private LocalDateTime createdAt;
 
     private Boolean isTrusted;
 

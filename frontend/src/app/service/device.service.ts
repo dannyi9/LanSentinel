@@ -7,12 +7,12 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class DeviceService {
-  private apiUrl = 'http://localhost:8080/devices';
+  private apiUrl = 'http://localhost:8080/device';
 
   constructor(private http: HttpClient) {}
 
   getAllDevices(): Observable<Device[]> {
-    return this.http.get<Device[]>(`${this.apiUrl}/all`);
+    return this.http.get<Device[]>(`${this.apiUrl}`);
   }
 
   getDeviceById(id: number): Observable<Device> {

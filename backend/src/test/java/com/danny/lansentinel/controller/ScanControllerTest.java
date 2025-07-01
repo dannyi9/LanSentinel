@@ -1,7 +1,7 @@
 package com.danny.lansentinel.controller;
 
-import com.danny.lansentinel.scheduler.NetworkScanScheduler;
-import com.danny.lansentinel.service.NetworkScannerService;
+import com.danny.lansentinel.scheduler.ScanScheduler;
+import com.danny.lansentinel.service.ScanService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -20,21 +20,21 @@ class ScanControllerTest {
 
     private MockMvc mockMvc;
 
-    private NetworkScannerService networkScannerService;
-    private NetworkScanScheduler networkScanScheduler;
+    private ScanService scanService;
+    private ScanScheduler scanScheduler;
 
     @BeforeEach
     void setUp() {
-        networkScannerService = Mockito.mock(NetworkScannerService.class);
-        networkScanScheduler = Mockito.mock(NetworkScanScheduler.class);
+        scanService = Mockito.mock(ScanService.class);
+        scanScheduler = Mockito.mock(ScanScheduler.class);
 
-        ScanController scanController = new ScanController(networkScannerService, networkScanScheduler);
+        ScanController scanController = new ScanController(scanService, scanScheduler);
         mockMvc = MockMvcBuilders.standaloneSetup(scanController).build();
     }
 
     @Test
     void testCheckScanEnabled() throws Exception {
-        when(networkScannerService.isScanEnabled()).thenReturn(true);
+        when(scanService.isScanEnabled()).thenReturn(true);
 
         mockMvc.perform(get("/scan/enabled"))
                 .andExpect(status().isOk())
@@ -43,7 +43,7 @@ class ScanControllerTest {
 
     @Test
     void testEnableScanTrue() throws Exception {
-        when(networkScannerService.setScanEnabled(true)).thenReturn(true);
+        when(scanService.setScanEnabled(true)).thenReturn(true);
 
         mockMvc.perform(get("/scan/enable/true"))
                 .andExpect(status().isOk())
@@ -52,7 +52,7 @@ class ScanControllerTest {
 
     @Test
     void testEnableScanFalse() throws Exception {
-        when(networkScannerService.setScanEnabled(false)).thenReturn(false);
+        when(scanService.setScanEnabled(false)).thenReturn(false);
 
         mockMvc.perform(get("/scan/enable/false"))
                 .andExpect(status().isOk())
@@ -61,7 +61,7 @@ class ScanControllerTest {
 
     @Test
     void testGetScanInterval() throws Exception {
-        when(networkScanScheduler.getScanIntervalMs()).thenReturn(30000L);
+        when(scanScheduler.getScanIntervalMs()).thenReturn(30000L);
 
         mockMvc.perform(get("/scan/interval"))
                 .andExpect(status().isOk())
@@ -70,7 +70,7 @@ class ScanControllerTest {
 
     @Test
     void testSetScanInterval() throws Exception {
-        when(networkScanScheduler.updateScanInterval(60000L)).thenReturn(60000L);
+        when(scanScheduler.updateScanInterval(60000L)).thenReturn(60000L);
 
         mockMvc.perform(put("/scan/setinterval")
                         .contentType(MediaType.APPLICATION_JSON)
