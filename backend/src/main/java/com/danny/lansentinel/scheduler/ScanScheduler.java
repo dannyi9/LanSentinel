@@ -44,7 +44,7 @@ public class ScanScheduler {
             return;
         }
 
-        System.out.println("Scheduling network scan task");
+        logger.info("Scheduling network scan task");
         scheduledFuture = taskScheduler.scheduleWithFixedDelay(
                     () -> runNetworkScan(subnetToScan),
                 Duration.ofMillis(scanIntervalMs)
